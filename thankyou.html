@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thank You</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f7fb;
+      color: #222;
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .box {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h1 id="title">Thank you 🙏</h1>
+  <p id="desc">You’re officially an early backer.</p>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const plan = params.get('plan');
+
+  const discordEl = document.getElementById('discord');
+  const emailEl = document.getElementById('email');
+
+  if (plan === 'supporter') {
+    document.getElementById('title').innerText = 'Welcome, Supporter 💚';
+    discordEl.innerHTML = `
+      👉 <a href="https://discord.gg/ekDTATXhnU" target="_blank">
+      Join Supporter Discord
+      </a>
+    `;
+    emailEl.innerText = 'You’ll receive early updates and your Genesis ID by email.';
+  }
+  if (plan === 'insider') {
+    document.getElementById('title').innerText = 'Welcome, Insider 🔵';
+    discordEl.innerHTML = `
+      👉 <a href="https://discord.gg/cteYeUxbrR" target="_blank">
+      Join Insider Discord
+      </a>
+    `;
+    emailEl.innerText = 'You’ll receive insider updates and early access invites by email.';
+  }
+  if (plan === 'angel') {
+    document.getElementById('title').innerText = 'Welcome, Angel 🔴';
+     discordEl.innerHTML = `
+      👉 <a href="https://discord.gg/UVpYQC38v9" target="_blank">
+      Join Founders Discord
+      </a>
+    `;
+    emailEl.innerText = 'You’ll receive founder-level updates and direct contact by email.';
+  }
+
+  
+
+  
+</script>
+
+
+</body>
+</html>
