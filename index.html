@@ -7,6 +7,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Support a Gen Z identity experiment. Help launch a viral digital project." />
 
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-63XHJRTLQC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-63XHJRTLQC');
+  </script>
+
+  <script>
+    document.querySelectorAll('.cta').forEach(function(el) {
+      el.addEventListener('click', function() {
+        const plan = this.getAttribute('data-plan') || 'unknown';
+
+        gtag('event', 'click_funding', {
+          event_category: 'funding',
+          event_label: 'funding_button',
+          value: plan
+        });
+      });
+    });
+  </script>
+
   <style>
     :root {
       --bg: #f6f7fb;
@@ -282,7 +305,7 @@
             <li>Early Backer recognition</li>
             <li>Private progress updates</li>
           </ul>
-          <a class="cta" href="https://survivorid.lemonsqueezy.com/checkout/buy/4e79e5b7-4133-4355-a51f-d11596fa04ee">Support $100</a>
+          <a class="cta" data-plan="100" href="https://survivorid.lemonsqueezy.com/checkout/buy/4e79e5b7-4133-4355-a51f-d11596fa04ee">Support $100</a>
         </div>
 
         <div class="card">
@@ -293,7 +316,7 @@
             <li>Private Discord access</li>
             <li>Early feature access</li>
           </ul>
-          <a class="cta" href="https://survivorid.lemonsqueezy.com/checkout/buy/6a3b3368-12ef-4e15-ad9e-c7d981c3918b">Support $500</a>
+          <a  class="cta" data-plan="500" href="https://survivorid.lemonsqueezy.com/checkout/buy/6a3b3368-12ef-4e15-ad9e-c7d981c3918b">Support $500</a>
         </div>
 
         <div class="card">
@@ -304,7 +327,7 @@
             <li>1–1 call with founder</li>
             <li>Founding supporter recognition</li>
           </ul>
-          <a class="cta" href="https://survivorid.lemonsqueezy.com/checkout/buy/358a64c8-8937-4365-9862-eb7e0d7609a5">Support $1,000</a>
+          <a class="cta" data-plan="1000" href="https://survivorid.lemonsqueezy.com/checkout/buy/358a64c8-8937-4365-9862-eb7e0d7609a5">Support $1,000</a>
         </div>
 
       </div>
