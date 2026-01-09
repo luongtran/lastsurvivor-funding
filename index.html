@@ -7,12 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Support a Gen Z identity experiment. Help launch a viral digital project." />
 
+  <script src="https://www.paypal.com/sdk/js?client-id=ARLgGDL88xYoP9q4KU3eet19dWZr6cdPQ54VP2d6Jd1RD9CaHQLZr6cGjydc-qH4jHmDM8v-rR0xh0ay&currency=USD"></script>
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-63XHJRTLQC"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-63XHJRTLQC');
   </script>
 
@@ -40,6 +41,10 @@
       --accent: #2563eb; /* trust blue */
       --accent-soft: #e0e7ff;
       --danger: #b91c1c;
+    }
+    .paypal-button-container {
+      margin-top: 20px;
+      min-height: 150px;
     }
 
     * {
@@ -294,7 +299,6 @@
     <!-- TIERS -->
     <section id="tiers">
       <h2>Backer Tiers</h2>
-
       <div class="grid">
 
         <div class="card">
@@ -305,7 +309,7 @@
             <li>Early Backer recognition</li>
             <li>Private progress updates</li>
           </ul>
-          <a class="cta" data-plan="100" href="https://survivorid.lemonsqueezy.com/checkout/buy/4e79e5b7-4133-4355-a51f-d11596fa04ee">Support $100</a>
+          <div id="paypal-button-100" class="paypal-button-container"></div>
         </div>
 
         <div class="card">
@@ -316,7 +320,7 @@
             <li>Private Discord access</li>
             <li>Early feature access</li>
           </ul>
-          <a  class="cta" data-plan="500" href="https://survivorid.lemonsqueezy.com/checkout/buy/6a3b3368-12ef-4e15-ad9e-c7d981c3918b">Support $500</a>
+          <div id="paypal-button-500" class="paypal-button-container"></div>
         </div>
 
         <div class="card">
@@ -327,7 +331,7 @@
             <li>1–1 call with founder</li>
             <li>Founding supporter recognition</li>
           </ul>
-          <a class="cta" data-plan="1000" href="https://survivorid.lemonsqueezy.com/checkout/buy/358a64c8-8937-4365-9862-eb7e0d7609a5">Support $1,000</a>
+          <div id="paypal-button-1000" class="paypal-button-container"></div>
         </div>
 
       </div>
@@ -360,5 +364,47 @@
     </footer>
 
   </div>
+  <script>
+    // Hàm khởi tạo nút PayPal cho từng gói
+    function initPayPalButton(containerId, amount, planName) {
+      paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: 'blue',
+          layout: 'vertical',
+          label: 'pay',
+        },
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              description: "Survivor ID Funding: " + planName,
+              amount: { currency_code: 'USD', value: amount }
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(orderData) {
+            // Gửi event GTM
+            gtag('event', 'funding_success', {
+              event_category: 'funding',
+              event_label: planName,
+              value: amount
+            });
+            alert('Thank you for your support, ' + orderData.payer.name.given_name + '! We will contact you via email soon.');
+          });
+        },
+        onError: function(err) {
+          console.error('PayPal Error:', err);
+        }
+      }).render(containerId);
+    }
+
+    // Chạy khởi tạo khi trang load
+    window.addEventListener('load', function() {
+      initPayPalButton('#paypal-button-100', '100.00', 'Early Backer');
+      initPayPalButton('#paypal-button-500', '500.00', 'Core Backer');
+      initPayPalButton('#paypal-button-1000', '1000.00', 'Founding Backer');
+    });
+  </script>
 </body>
 </html>
